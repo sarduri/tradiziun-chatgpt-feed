@@ -4,13 +4,14 @@
 Spezifikation: https://developers.openai.com/commerce/specs/file-upload/products
 
 Beispiel:
-    python3 tools/chatgpt_feed.py --base-url https://www.example.ch -o feed.jsonl
+    python3 tools/chatgpt_feed.py --base-url https://www.example.ch -o feed.jsonl.gz   # .gz -> gzip-komprimiert (vom Business Hub verlangt)
 
 --base-url ist die öffentliche Shop-Domain (für die Produkt-URLs im Feed).
 --source   ist die Domain, von der products.json gelesen wird (Standard: --base-url).
 Nur Python-Standardbibliothek.
 """
 import argparse
+import gzip
 import html
 import json
 import re
@@ -138,7 +139,8 @@ def main():
     rows, skipped = build_rows(products, args)
     if not rows:
         sys.exit("Keine Zeilen erzeugt – Feed wird nicht geschrieben.")
-    with open(args.output, "w", encoding="utf-8") as f:
+    opener = gzip.open if args.output.endswith(".gz") else open
+    with opener(args.output, "wt", encoding="utf-8") as f:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
     print(f"{len(products)} Produkte -> {len(rows)} Feed-Zeilen ({skipped} übersprungen: ohne Bild/Preis) -> {args.output}")

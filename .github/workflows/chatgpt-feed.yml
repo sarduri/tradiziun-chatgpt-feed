@@ -22,7 +22,7 @@ jobs:
       - name: Feed erzeugen
         run: |
           mkdir -p public
-          python3 tools/chatgpt_feed.py --base-url https://tradiziun.ch -o public/feed.jsonl
+          python3 tools/chatgpt_feed.py --base-url https://tradiziun.ch -o public/feed.jsonl.gz
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
