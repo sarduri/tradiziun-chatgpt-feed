@@ -2,7 +2,7 @@ name: ChatGPT-Produktfeed
 
 on:
   schedule:
-    - cron: "17 3 * * *"   # täglich ca. 04:17/05:17 Schweizer Zeit
+    - cron: "30 21 * * *"   # täglich ca. 22:30/23:30 Schweizer Zeit, vor dem Abruf des Business Hub (ca. 01:00)
   workflow_dispatch:
 
 permissions:
